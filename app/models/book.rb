@@ -1,7 +1,7 @@
 class Book < ApplicationRecord
   validates :title, presence: true
 
-  enum status: { avaliable: 'avaliable' , reserved: 'reserved', checked_out: 'checked out' }
+  enum status: { avaliable: 'avaliable' , reserved: 'reserved', checked_out: 'checked_out' }
 
   def is_unavaliable?
     self.reserved? || self.checked_out? 
