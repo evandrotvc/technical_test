@@ -2,9 +2,9 @@ class BooksController < ApplicationController
   before_action :set_book
 
   def reserve
-    return book_is_reserved if @book.is_avaliable?
-
-    if @book.update_email_and_reserved(email: book_params[:email])
+    if @book.is_unavaliable?
+      book_is_reserved 
+    elsif @book.update_email_and_reserved(email: book_params[:email])
       render json: { message: "The book #{@book.title} is reserved for you!", status: :ok }
     else
       render json: { message: "It happens some error. Wait for moment, please", status: :error }
@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   private
 
   def book_is_reserved
-    render json: { message: "The book #{@book.title} is already reserved!", status: :unprocessable_entity }
+    render :errors, status: :unprocessable_entity
   end
 
   def set_book

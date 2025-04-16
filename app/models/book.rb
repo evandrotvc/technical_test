@@ -3,7 +3,7 @@ class Book < ApplicationRecord
 
   enum status: { avaliable: 'avaliable' , reserved: 'reserved', checked_out: 'checked out' }
 
-  def is_avaliable?
+  def is_unavaliable?
     self.reserved? || self.checked_out? 
   end
 

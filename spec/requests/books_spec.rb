@@ -27,5 +27,22 @@ RSpec.describe 'Books' do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context 'when the book is already reserved' do
+      let!(:book) { create(:book, status: 'reserved') }
+
+      it 'must return unprocessable_entity status' do
+        # byebug
+        post reserve_book_path(book.id), as: :json, params: params
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'must return a message indicating the book is reserved' do
+        post reserve_book_path(book.id), as: :json, params: params
+
+        expect(body['message']).to eq("The book #{book.title} is already reserved!")
+      end
+    end
   end
 end
