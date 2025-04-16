@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
   validates :title, presence: true
+  belongs_to :author
 
   enum status: { avaliable: 'avaliable', reserved: 'reserved',
                  checked_out: 'checked_out' }

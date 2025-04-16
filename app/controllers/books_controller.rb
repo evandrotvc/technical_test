@@ -2,7 +2,8 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:reserve, :show]
 
   def index
-    @books = Book.all
+    # Eager load authors for better performance, and you avoid query n+1, with book.author.name
+    @books = Book.page(params[:page]).per(30).includes(:author)
     render :index
   end
 
