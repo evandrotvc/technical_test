@@ -13,6 +13,7 @@ RSpec.describe 'Books' do
 
   describe 'POST /books/:id/reserved' do
     let!(:book)  { create(:book) }
+
     context 'when the book is avaliable' do
       it 'must to change status the book to reserved' do
         post(reserve_book_path(book.id), as: :json, params:)
@@ -61,7 +62,6 @@ RSpec.describe 'Books' do
   end
 
   describe 'GET /books/' do
-
     context 'when you have success response' do
       let!(:books) { create_list(:book, 3) }
 
@@ -70,11 +70,11 @@ RSpec.describe 'Books' do
       it 'returns a successful response' do
         expect(response).to have_http_status(:ok)
       end
-  
+
       it 'renders a JSON array of books' do
         expect(response.content_type).to eq('application/json; charset=utf-8')
-        parsed_body = JSON.parse(response.body)
-  
+        parsed_body = response.parsed_body
+
         expect(parsed_body.count).to eq(3)
       end
     end
@@ -87,13 +87,13 @@ RSpec.describe 'Books' do
 
       it 'returns the first page of books by default' do
         expect(response).to have_http_status(:ok)
-        parsed_body = JSON.parse(response.body)
-        expect(parsed_body.first['id']).to eq(books.first.id )
+        parsed_body = response.parsed_body
+        expect(parsed_body.first['id']).to eq(books.first.id)
       end
 
       it 'returns the second page of books' do
         get books_path(page: 2), as: :json
-        parsed_body = JSON.parse(response.body)
+        parsed_body = response.parsed_body
 
         expect(parsed_body.first['id']).to eq(Book.first.id + per_page)
       end

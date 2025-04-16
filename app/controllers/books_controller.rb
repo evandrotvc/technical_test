@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:reserve, :show]
+  before_action :set_book, only: %i[reserve show]
 
   PER_PAGE = 10
 
