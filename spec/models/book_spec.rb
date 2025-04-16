@@ -5,7 +5,6 @@ RSpec.describe Book do
 
   describe '#valid' do
     it 'must be valid' do
-      byebug
       expect(book.valid?).to eq(true)
     end
   end
