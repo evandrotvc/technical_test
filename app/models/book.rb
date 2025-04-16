@@ -6,4 +6,8 @@ class Book < ApplicationRecord
   def is_avaliable?
     self.reserved? || self.checked_out? 
   end
+
+  def update_email_and_reserved(email:)
+    self.update!(email: email, status: 'reserved')
+  end
 end

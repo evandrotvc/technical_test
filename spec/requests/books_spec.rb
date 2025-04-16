@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe BooksController, type: :request do
+RSpec.describe 'Books' do
   let(:body) { response.parsed_body }
   let!(:book)  { create(:book) }
+  let(:headers) {}
   let(:params) do
     {
       book: {
@@ -11,14 +12,19 @@ RSpec.describe BooksController, type: :request do
     }
   end
 
-  describe 'POST book/:id/reserved' do
+  describe 'POST /books/:id/reserved' do
     context 'when the book is avaliable' do
 
       it 'must to change status the book to reserved' do
-        byebug
-        post reserve_books_path(book.id), as: :json, params: params
+        post reserve_book_path(book.id), as: :json, params: params
 
-        expect(body)
+        expect(body['message']).to eq("The book #{book.title} is reserved for you!")
+      end
+
+      it 'must return ok on status' do
+        post reserve_book_path(book.id), as: :json, params: params
+
+        expect(response).to have_http_status(:ok)
       end
     end
   end
