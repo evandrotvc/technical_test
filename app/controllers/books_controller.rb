@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:reserve, :show]
 
+  PER_PAGE = 10
+
   def index
     # Eager load authors for better performance, and you avoid query n+1, with book.author.name
-    @books = Book.page(params[:page]).per(30).includes(:author)
+    @books = Book.paginate(page: params[:page], per_page: PER_PAGE).includes(:author)
     render :index
   end
 
