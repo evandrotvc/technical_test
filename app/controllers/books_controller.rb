@@ -3,11 +3,13 @@ class BooksController < ApplicationController
 
   def reserve
     if @book.is_unavaliable?
-      book_is_reserved 
+      book_is_reserved
     elsif @book.update_email_and_reserved(email: book_params[:email])
-      render json: { message: "The book #{@book.title} is reserved for you!", status: :ok }
+      render json: { message: "The book #{@book.title} is reserved for you!",
+                     status: :ok }
     else
-      render json: { message: "It happens some error. Wait for moment, please", status: :error }
+      render json: { message: 'It happens some error. Wait for moment, please',
+                     status: :error }
     end
   end
 

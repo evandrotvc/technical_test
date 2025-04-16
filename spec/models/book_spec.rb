@@ -4,12 +4,12 @@ RSpec.describe Book do
   let(:book) { build(:book) }
 
   describe 'validations' do
-    it { should validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:title) }
   end
 
   describe '#valid' do
     it 'must be valid' do
-      expect(book.valid?).to eq(true)
+      expect(book.valid?).to be(true)
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Book do
       before { book.reserved! }
 
       it 'returns true' do
-        expect(book.is_unavaliable?).to be_truthy
+        expect(book).to be_is_unavaliable
       end
     end
 
@@ -38,13 +38,13 @@ RSpec.describe Book do
       before { book.checked_out! }
 
       it 'returns true' do
-        expect(book.is_unavaliable?).to be_truthy
+        expect(book).to be_is_unavaliable
       end
     end
 
     context 'when status is avaliable' do
       it 'returns false' do
-        expect(book.is_unavaliable?).to be_falsey
+        expect(book).not_to be_is_unavaliable
       end
     end
   end
