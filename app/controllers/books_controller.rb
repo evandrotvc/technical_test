@@ -1,5 +1,14 @@
 class BooksController < ApplicationController
-  before_action :set_book
+  before_action :set_book, only: [:reserve, :show]
+
+  def index
+    @books = Book.all
+    render :index
+  end
+
+  def show
+    render :show
+  end
 
   def reserve
     if @book.is_unavaliable?

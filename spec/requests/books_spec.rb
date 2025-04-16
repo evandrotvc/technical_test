@@ -59,4 +59,20 @@ RSpec.describe 'Books' do
       end
     end
   end
+
+  describe 'GET /books/' do
+    let!(:books) { create_list(:book, 3) }
+    before { get books_path, as: :json }
+
+    it 'returns a successful response' do
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'renders a JSON array of books' do
+      expect(response.content_type).to eq('application/json; charset=utf-8')
+      parsed_body = JSON.parse(response.body)
+
+      expect(parsed_body.count).to eq(4)
+    end
+  end
 end
