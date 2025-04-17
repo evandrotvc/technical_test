@@ -23,14 +23,14 @@ RSpec.describe Book do
     end
   end
 
-  describe '#is_unavaliable?' do
+  describe '#unavaliable?' do
     let(:book) { create(:book) }
 
     context 'when status is reserved' do
       before { book.reserved! }
 
       it 'returns true' do
-        expect(book).to be_is_unavaliable
+        expect(book).to be_unavaliable
       end
     end
 
@@ -38,13 +38,13 @@ RSpec.describe Book do
       before { book.checked_out! }
 
       it 'returns true' do
-        expect(book).to be_is_unavaliable
+        expect(book).to be_unavaliable
       end
     end
 
     context 'when status is avaliable' do
       it 'returns false' do
-        expect(book).not_to be_is_unavaliable
+        expect(book).not_to be_unavaliable
       end
     end
   end

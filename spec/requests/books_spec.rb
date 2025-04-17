@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Books' do
   let(:body) { response.parsed_body }
-  let(:headers) {}
   let(:params) do
     {
       book: {
@@ -63,9 +62,12 @@ RSpec.describe 'Books' do
 
   describe 'GET /books/' do
     context 'when you have success response' do
-      let!(:books) { create_list(:book, 3) }
+      let(:books) { create_list(:book, 3) }
 
-      before { get books_path, as: :json }
+      before do
+        books
+        get books_path, as: :json
+      end
 
       it 'returns a successful response' do
         expect(response).to have_http_status(:ok)
