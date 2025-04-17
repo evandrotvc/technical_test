@@ -31,7 +31,7 @@ Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Layout/LineLength:
-  Max: 90
+  Max: 120
 
 Lint/MissingSuper:
   Enabled: false

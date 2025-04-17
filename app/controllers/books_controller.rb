@@ -16,6 +16,12 @@ class BooksController < ApplicationController
   # Instead of fetching all books at once,
   # the results are now returned in smaller, manageable pages
 
+  # 4) Low-Level Caching:
+  # Cache the result of a database query ​​using Rails.cache.fetch, avoiding to hit in database every time. example
+  # @books = Rails.cache.fetch("books_page_#{params[:page] || 1}_per_#{PER_PAGE}, expires_in: 30.minutes) do
+  # Book.paginate(page: params[:page], per_page: PER_PAGE).includes(:author)
+  # end
+
   def index
     @books = Book.paginate(page: params[:page], per_page: PER_PAGE).includes(:author)
     render :index
