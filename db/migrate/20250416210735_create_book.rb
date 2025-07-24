@@ -8,4 +8,10 @@ class CreateBook < ActiveRecord::Migration[7.0]
       t.timestamps
     end
   end
+
+  # add_reference :books, :author, foreign_key: true, index: true
+  # add_index :authors, :name
+  # add_index :authors, :age
+  # t.references :user, null: false, foreign_key: true
+
 end
